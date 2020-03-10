@@ -15,11 +15,11 @@
           transition-duration: $args1, $args2;
 }
 
-@mixin transition-delay($args1, $args2) {
-  -webkit-transition-delay: $args1, $args2;
-     -moz-transition-delay: $args1, $args2;
-       -o-transition-delay: $args1, $args2;
-          transition-delay: $args1, $args2;
+@mixin transition-delay($args) {
+  -webkit-transition-delay: $args;
+     -moz-transition-delay: $args;
+       -o-transition-delay: $args;
+          transition-delay: $args;
 }
 
 @mixin transition-property($args1, $args2) {
@@ -27,6 +27,13 @@
      -moz-transition-property: $args1, $args2;
        -o-transition-property: $args1, $args2;
           transition-property: $args1, $args2;
+}
+
+@mixin transition-timing-function($args) {
+  -webkit-transition-timing-function: $args;
+     -moz-transition-timing-function: $args;
+       -o-transition-timing-function: $args;
+          transition-timing-function: $args;
 }
 
 
@@ -52,7 +59,13 @@
   filter: $filter-type+unquote('(#{$filter-amount})');
 }
 
-
+@mixin flex-direction($fdirection) {
+  -webkit-flex-direction: $direction;
+     -moz-flex-direction: $direction;
+      -ms-flex-direction: $direction;
+       -o-flex-direction: $direction;
+          flex-direction: $direction;
+}
 
 @mixin transform($transform) {
     -webkit-transform: $transform;
@@ -104,28 +117,28 @@
           animation: $args;
 }
 
-// Medium Layout: 1280px 
+/* Medium Layout: 1280px */
 @mixin medium {
   @media (min-width: 992px) and (max-width: 1400px) {
     @content;
   }
 }
 
-// Tablet Layout: 768px 
+/* Tablet Layout: 768px */
 @mixin tablet {
   @media (min-width: 768px) and (max-width: 1200px) {
     @content;
   }
 }
 
-// Mobile Layout: 320px 
+/* Mobile Layout: 320px */
 @mixin mobile {
   @media (max-width: 767px) {
     @content;
   }
 }
 
-// Wide Mobile Layout: 480px 
+/* Wide Mobile Layout: 480px */
 @mixin wide-mobile {
   @media (min-width: 480px) and (max-width: 767px) {
     @content;

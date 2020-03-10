@@ -1,27 +1,61 @@
-$(document).ready(function() {
+$(document).ready(function () {
     "use strict";
 
+    var window_width = $(window).width(),
+        window_height = window.innerHeight,
+        header_height = $(".default-header").height(),
+        header_height_static = $(".site-header.static").outerHeight(),
+        fitscreen = window_height - header_height;
+
+    $(".fullscreen").css("height", window_height)
+    $(".fitscreen").css("height", fitscreen);
+
+    //------- Wow JS Initialized --------// 
+    new WOW().init();
+
+    //------- Go to Top --------// 
+    $(window).on("scroll", function () {
+        if ($(this).scrollTop() > 100) {
+            $('#header1').addClass('header-scrolled1');
+            $('#back-top').addClass('back-top-animation');
+        } else {
+            $('#header1').removeClass('header-scrolled1');
+            $('#back-top').removeClass('back-top-animation');
+        }
+    });
+
+    /* ---------------------------------------------
+        scroll body to 0px on click
+     --------------------------------------------- */
+     $('#back-top a').on("click", function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 1000);
+        return false;
+    });
 
     //------- Niceselect  js --------//  
 
     if (document.getElementById("default-select")) {
         $('select').niceSelect();
     };
-    if (document.getElementById("default-select2")) {
-        $('select').niceSelect();
-    };
     if (document.getElementById("service-select")) {
         $('select').niceSelect();
-    };    
+    };
+
+    //------- Pre Loader --------//  
+    $(window).on('load', function () {
+        $(".preloader-area").delay(200).fadeOut(500);
+    })
 
     //------- Lightbox  js --------//  
-
-    $('.img-pop-up').magnificPopup({
+    $('.img-gal').magnificPopup({
         type: 'image',
         gallery: {
             enabled: true
         }
     });
+
 
     $('.play-btn').magnificPopup({
         type: 'iframe',
@@ -31,73 +65,94 @@ $(document).ready(function() {
         fixedContentPos: false
     });
 
-    //------- Counter  js --------//  
-
-     if(document.getElementById("facts-area")){
-      $('.counter').counterUp({
-          delay: 10,
-          time: 1000
-      });
-    }
-
-    //------- Skill  js --------//  
-
-    $('.skill').simpleSkillbar();
-
     //------- Filter  js --------//  
+    $(window).on("load", function () {
+        $('.filters ul li').on("click", function () {
+            $('.filters ul li').removeClass('active');
+            $(this).addClass('active');
 
-      $('.filters ul li').click(function(){
-        $('.filters ul li').removeClass('active');
-        $(this).addClass('active');
-        
-        var data = $(this).attr('data-filter');
-        $grid.isotope({
-          filter: data
-        })
-      });
-
-
-      if(document.getElementById("portfolio")){
-            var $grid = $(".grid").isotope({
-              itemSelector: ".all",
-              percentPosition: true,
-              masonry: {
-                columnWidth: ".all"
-              }
+            var data = $(this).attr('data-filter');
+            $grid.isotope({
+                filter: data
             })
-      };
-
-
-    //------- Timeline js --------//  
-
-
-    $('.content').each( function(i){
-      
-      var bottom_of_object= $(this).offset().top + $(this).outerHeight();
-      var bottom_of_window = $(window).height();
-      
-      if( bottom_of_object > bottom_of_window){
-        $(this).addClass('hidden');
-      }
-    });
-
-
-    $(window).scroll( function(){
-        /* Check the location of each element hidden */
-        $('.hidden').each( function(i){
-          
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-          
-            /* If the object is completely visible in the window, fadeIn it */
-            if( bottom_of_window > bottom_of_object ){
-              $(this).animate({'opacity':'1'},700);
-            }
         });
+
+
+        if (document.getElementById("work")) {
+            var $grid = $(".grid").isotope({
+                itemSelector: ".all",
+                percentPosition: true,
+                masonry: {
+                    columnWidth: ".all"
+                }
+            })
+        };
     });
 
+    //------- Accordion  js --------//  
 
-    //------- Superfish nav menu  js --------//  
+    jQuery(document).ready(function ($) {
+
+        if (document.getElementById("accordion")) {
+
+            var accordion_1 = new Accordion(document.getElementById("accordion"), {
+                collapsible: false,
+                slideDuration: 500
+            });
+        }
+    });
+
+    //------- Circle Chart  js --------//  
+
+    if (document.getElementById("skills")) {
+
+        $('.skill-1').percentcircle({
+            animate: true,
+            diameter: 400,
+            guage: 5,
+            coverBg: '#fff',
+            bgColor: '#efefef',
+            fillColor: '#988fff',
+            percentSize: '24px',
+            percentWeight: 'normal'
+        });
+
+        $('.skill-2').percentcircle({
+            animate: true,
+            diameter: 400,
+            guage: 5,
+            coverBg: '#fff',
+            bgColor: '#efefef',
+            fillColor: '#988fff',
+            percentSize: '24px',
+            percentWeight: 'normal'
+        });
+
+        $('.skill-3').percentcircle({
+            animate: true,
+            diameter: 400,
+            guage: 5,
+            coverBg: '#fff',
+            bgColor: '#efefef',
+            fillColor: '#988fff',
+            percentSize: '24px',
+            percentWeight: 'normal'
+        });
+
+        $('.skill-4').percentcircle({
+            animate: true,
+            diameter: 400,
+            guage: 5,
+            coverBg: '#fff',
+            bgColor: '#efefef',
+            fillColor: '#988fff',
+            percentSize: '24px',
+            percentWeight: 'normal'
+        });
+
+    };
+
+    //------- Superfist nav menu  js --------//  
 
     $('.nav-menu').superfish({
         animation: {
@@ -105,99 +160,6 @@ $(document).ready(function() {
         },
         speed: 400
     });
-
-    //------- Accordian Js --------//  
-
-    var allPanels = $(".accordion > dd").hide();
-    allPanels.first().slideDown("easeOutExpo");
-    $(".accordion").each(function() {
-        $(this).find("dt > a").first().addClass("active").parent().next().css({
-            display: "block"
-        });
-    });
-
-
-     $(document).on('click', '.accordion > dt > a', function(e) {
-
-        var current = $(this).parent().next("dd");
-        $(this).parents(".accordion").find("dt > a").removeClass("active");
-        $(this).addClass("active");
-        $(this).parents(".accordion").find("dd").slideUp("easeInExpo");
-        $(this).parent().next().slideDown("easeOutExpo");
-
-        return false;
-
-    });
-
-    //------- Tabs Js --------//  
-    if (document.getElementById("horizontalTab")) {
-
-    $('#horizontalTab').jqTabs({
-        direction: 'horizontal',
-        duration: 200
-    });
-    
-    };  
-
-
-    //------- Owl Carusel  js --------//  
-
-    $('.active-review-carusel').owlCarousel({
-        items:1,
-        loop:true,
-        autoplay:true,
-        autoplayHoverPause: true,        
-        margin:30,
-        dots: true
-    });
-
-     $('.active-testimonial').owlCarousel({
-            items: 2,
-            loop: true,
-            margin: 30,
-            autoplayHoverPause: true,
-            dots: true,
-            autoplay: true,
-            nav: true,
-            navText: ["<span class='lnr lnr-arrow-up'></span>", "<span class='lnr lnr-arrow-down'></span>"],
-            responsive: {
-                0: {
-                    items: 1
-                },
-                480: {
-                    items: 1,
-                },
-                768: {
-                    items: 2,
-                }
-            }
-        });
-
-
-
-    $('.active-brand-carusel').owlCarousel({
-        items: 5,
-        loop: true,
-        autoplayHoverPause: true,
-        autoplay: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            455: {
-                items: 2
-            },            
-            768: {
-                items: 3,
-            },
-            991: {
-                items: 4,
-            },
-            1024: {
-                items: 5,
-            }
-        }
-    }); 
 
     //------- Mobile Nav  js --------//  
 
@@ -214,19 +176,19 @@ $(document).ready(function() {
         $('body').append('<div id="mobile-body-overly"></div>');
         $('#mobile-nav').find('.menu-has-children').prepend('<i class="lnr lnr-chevron-down"></i>');
 
-        $(document).on('click', '.menu-has-children i', function(e) {
+        $(document).on('click', '.menu-has-children i', function (e) {
             $(this).next().toggleClass('menu-item-active');
             $(this).nextAll('ul').eq(0).slideToggle();
             $(this).toggleClass("lnr-chevron-up lnr-chevron-down");
         });
 
-        $(document).on('click', '#mobile-nav-toggle', function(e) {
+        $(document).on('click', '#mobile-nav-toggle', function (e) {
             $('body').toggleClass('mobile-nav-active');
             $('#mobile-nav-toggle i').toggleClass('lnr-cross lnr-menu');
             $('#mobile-body-overly').toggle();
         });
 
-            $(document).on('click', function(e) {
+        $(document).click(function (e) {
             var container = $("#mobile-nav, #mobile-nav-toggle");
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 if ($('body').hasClass('mobile-nav-active')) {
@@ -242,7 +204,7 @@ $(document).ready(function() {
 
     //------- Smooth Scroll  js --------//  
 
-    $('.nav-menu a, #mobile-nav a, .scrollto').on('click', function() {
+    $('.nav-menu a, #mobile-nav a, .scrollto').on('click', function () {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var target = $(this.hash);
             if (target.length) {
@@ -275,13 +237,13 @@ $(document).ready(function() {
         }
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $('html, body').hide();
 
         if (window.location.hash) {
 
-            setTimeout(function() {
+            setTimeout(function () {
 
                 $('html, body').scrollTop(0).show();
 
@@ -301,39 +263,88 @@ $(document).ready(function() {
 
     });
 
-
-    jQuery(document).ready(function($) {
-        // Get current path and find target link
-        var path = window.location.pathname.split("/").pop();
-
-        // Account for home page with empty path
-        if (path == '') {
-            path = 'index.html';
-        }
-
-        var target = $('nav a[href="' + path + '"]');
-        // Add active class to target link
-        target.addClass('menu-active');
-    });
-
-    $(document).ready(function() {
-        if ($('.menu-has-children ul>li a').hasClass('menu-active')) {
-            $('.menu-active').closest("ul").parentsUntil("a").addClass('parent-active');
-        }
-    });
-
-
-
-
     //------- Header Scroll Class  js --------//  
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
             $('#header').addClass('header-scrolled');
         } else {
             $('#header').removeClass('header-scrolled');
         }
     });
+
+    //------- Owl Carusel  js --------//
+    if($('.active-brand-carusel').length) {
+        $('.active-brand-carusel').owlCarousel({
+            items: 5,
+            loop: true,
+            autoplayHoverPause: true,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 3,
+                },
+                991: {
+                    items: 4,
+                },
+                1024: {
+                    items: 5,
+                }
+            }
+        });
+    }
+
+    if ($('.testi_slider').length) {
+        $('.testi_slider').owlCarousel({
+            loop: true,
+            margin: 30,
+            items: 1,
+            nav: true,
+            autoplay: 2500,
+            smartSpeed: 1500,
+            dots: true,
+            responsiveClass: true,
+            navText : ["<i class='lnr lnr-arrow-left'></i>","<i class='lnr lnr-arrow-right'></i>"]
+        })
+    }
+
+    //------- Timer Countdown  js --------//  
+
+    if (document.getElementById("count")) {
+
+        var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now an the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="count"
+            document.getElementById("count").innerHTML =
+
+                "<div class='col'><span>" + days + "</span><br> Days " + "</div>" + "<div class='col'><span>" + hours + "</span><br> Hours " + "</div>" + "<div class='col'><span>" + minutes + "</span><br> Minutes " + "</div>" + "<div class='col'><span>" + seconds + "</span><br> Seconds </div>";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("count").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+
+    }
 
     //------- Google Map  js --------//  
 
@@ -473,8 +484,8 @@ $(document).ready(function() {
 
     //------- Mailchimp js --------//  
 
-    $(document).ready(function() {
-        $('#mc_embed_signup').find('form').ajaxChimp();
-    });
+    // $(document).ready(function () {
+    //     $('#mc_embed_signup').find('form').ajaxChimp();
+    // });
 
 });

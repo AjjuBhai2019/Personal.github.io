@@ -17,11 +17,9 @@
 
 
 // Custom Scss 
+@import "theme/predefined";
 @import "theme/elements";
 @import "theme/header";
 @import "theme/home";
-@import "theme/about";
-@import "theme/price";
-@import "theme/blog";
-@import "theme/contact";
+@import "theme/pages";
 @import "theme/footer";
