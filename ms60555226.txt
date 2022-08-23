@@ -1,0 +1,5 @@
+﻿{
+  "Description": "Domain ownership verification file for Microsoft 365 - place in the website root",
+  "Domain": "srav.in",
+  "Id": "dd4b0b8a-144d-4864-acd1-3bae4cd3b670"
+}
